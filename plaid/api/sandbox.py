@@ -43,6 +43,35 @@ class Item(API):
         })
 
 
+class ProcessorToken(API):
+    '''Sandbox processor token endpoints.'''
+
+    def create(self,
+               institution_id,
+               _options=None,
+               override_username=None,
+               override_password=None
+               ):
+        '''
+        Generate a processor token for sandbox testing.
+
+        :param  str     institution_id:
+        :param  str     override_username:
+        :param  str     override_password:
+        '''
+        options = _options or {}
+
+        if override_username is not None:
+            options['override_username'] = override_username
+        if override_password is not None:
+            options['override_password'] = override_password
+
+        return self.client.post('/sandbox/processor_token/create', {
+            'institution_id': institution_id,
+            'options': options,
+        })
+
+
 class PublicToken(API):
     '''Sandbox public token endpoints.'''
 
